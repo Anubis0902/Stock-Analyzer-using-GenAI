@@ -1,6 +1,6 @@
 
 import os 
-from langchain_groq import ChatGroq
+from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_core.tools import tool
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.agents import create_tool_calling_agent, AgentExecutor
@@ -233,10 +233,10 @@ class AgentWrapper:
         self._last_api_key = None
         
     def invoke(self, input_dict):
-        # Gracefully handle missing GROQ_API_KEY when the chat is run, instead of crashing the import
-        api_key = os.environ.get("GROQ_API_KEY")
+        # Gracefully handle missing NVIDIA_API_KEY when the chat is run, instead of crashing the import
+        api_key = os.environ.get("NVIDIA_API_KEY")
         if not api_key:
-            raise ValueError("GROQ_API_KEY is missing. Please enter your Groq API Key in the sidebar or add it to a `.env` file.")
+            raise ValueError("NVIDIA_API_KEY is missing. Please enter your NVIDIA API Key in the sidebar or add it to a `.env` file.")
 
         messages = input_dict.get("messages", [])
         if not messages:
@@ -248,7 +248,13 @@ class AgentWrapper:
         # Lazy initialization of the agent executor to prevent import-time crashes, with support for live key switching
         global model, base_agent, agent_executor
         if agent_executor is None or self._last_api_key != api_key:
-            model = ChatGroq(model='llama-3.3-70b-versatile', groq_api_key=api_key)
+            model = ChatNVIDIA(
+                model="openai/gpt-oss-20b",
+                api_key=api_key,
+                temperature=1,
+                top_p=1,
+                max_tokens=4096,
+            )
             base_agent = create_tool_calling_agent(model, tools, prompt)
             agent_executor = AgentExecutor(agent=base_agent, tools=tools, verbose=True)
             self._last_api_key = api_key

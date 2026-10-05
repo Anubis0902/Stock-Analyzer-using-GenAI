@@ -1,22 +1,6 @@
-# 📈 AI Stock Analyzer
+﻿# 📈 AI Stock Analyzer
 
-<p align="center">
-  <strong>An Intelligent agentic financial assistant powered by LangChain, Groq LLMs, Yahoo Finance, and Real-Time Web Search.</strong>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python&logoColor=white" alt="Python Version" />
-  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white" alt="Streamlit UI" />
-  <img src="https://img.shields.io/badge/LangChain-⚡-green?style=for-the-badge" alt="LangChain Agent Framework" />
-  <img src="https://img.shields.io/badge/Groq-Llama%203.3-orange?style=for-the-badge" alt="Groq LLM" />
-  <img src="https://img.shields.io/badge/License-MIT-red?style=for-the-badge" alt="MIT License" />
-</p>
-
----
-
-## 🚀 Overview
-
-**AI Stock Analyzer** is a state-of-the-art financial analysis companion that translates natural language queries into deep, real-time stock insights. Combining fundamental and technical stock metrics with the latest market sentiments via search APIs, it equips you with structured data and AI-guided opinions to help you make informed decisions.
+An **Agentic AI-powered Stock Analysis Assistant** built with **LangChain**, **NVIDIA NIM (GPT-OSS-20b)**, and **Streamlit**.
 
 Whether you ask *"Should I buy Nvidia?"*, *"Compare Apple vs Tesla"*, or *"What is the latest news on Microsoft?"*, the AI Stock Agent performs real-time data aggregation, technical trend evaluation, and news lookup before providing a clear, structured recommendation.
 
@@ -24,38 +8,38 @@ Whether you ask *"Should I buy Nvidia?"*, *"Compare Apple vs Tesla"*, or *"What 
 
 ## ✨ Features
 
-- 📊 **Real-Time Data Aggregation:** Fetches live pricing, 52-week ranges, trading volumes, and target prices using **Yahoo Finance (`yfinance`)**.
-- 🧠 **Agentic AI Reasoning:** Utilizes **LangChain Agents** paired with the **Groq Llama-3.3-70b-versatile** model for high-speed, logical reasoning.
-- 🔍 **Live Sentiment & Web Search:** Uses a dual news engine (**NewsAPI** & **DuckDuckGo Search**) to query recent events, press releases, and general market sentiments.
-- 📈 **Fundamental & Technical Indicator Analysis:** Automatically extracts valuation metrics (P/E ratio, EPS, ROE, Debt/Equity, Free Cash Flow) and evaluates 3-month momentum (uptrend/downtrend).
-- 💻 **Premium Dark-Theme Web UI:** Features a custom CSS-injected, modern dark-mode **Streamlit** dashboard designed for a clean chat experience.
+- 📊 **Real-Time Data Aggregation:** Fetches live pricing, 52-week ranges, trading volumes, and target prices using **Yahoo Finance (yfinance)**.
+- 🧠 **Agentic AI Reasoning:** Utilizes **LangChain Agents** paired with **NVIDIA NIM (openai/gpt-oss-20b)** for high-quality, logical reasoning.
+- 📰 **Live Sentiment & Web Search:** Uses a dual news engine (**NewsAPI** & **DuckDuckGo Search**) to query recent events, press releases, and general market sentiments.
+- 🔬 **Fundamental & Technical Indicator Analysis:** Automatically extracts valuation metrics (P/E ratio, EPS, ROE, Debt/Equity, Free Cash Flow) and evaluates 3-month momentum (uptrend/downtrend).
+- 🎨 **Premium Dark-Theme Web UI:** Features a custom CSS-injected, modern dark-mode **Streamlit** dashboard designed for a clean chat experience.
 - 📋 **Structured Reports:** Returns highly readable insights using a standardized layout covering Stock Summary, Quick Insights, Recent News, Analysis, and clear Buy/Hold/Sell advice.
 
 ---
 
-## 🛠 Tech Stack
+## 🛠️ Tech Stack
 
-| Technology | Logo / Reference | Purpose |
+| Technology | Reference | Purpose |
 | :--- | :--- | :--- |
-| **Python** | `Python 3.10+` | Core execution environment |
-| **Streamlit** | `stApp Dark Theme` | Interactive, responsive web interface |
-| **LangChain** | `Agent / Tools` | Orchestrating agent flow, prompt templates, and tool calls |
-| **Groq Cloud** | `llama-3.3-70b` | Ultra-fast LPU inference for LLM responses |
-| **yFinance** | `Yahoo Finance` | Fetching real-time market indicators and historical price series |
-| **NewsAPI & DuckDuckGo** | `Search APIs` | Fetching live news and articles to assess market sentiment |
-| **Dotenv** | `python-dotenv` | Secure local configuration and environment variable loading |
+| **Python** | Python 3.10+ | Core execution environment |
+| **Streamlit** | stApp Dark Theme | Interactive, responsive web interface |
+| **LangChain** | Agent / Tools | Orchestrating agent flow, prompt templates, and tool calls |
+| **NVIDIA NIM** | openai/gpt-oss-20b | LLM inference via NVIDIA AI Endpoints |
+| **yFinance** | Yahoo Finance | Fetching real-time market indicators and historical price series |
+| **NewsAPI & DuckDuckGo** | Search APIs | Fetching live news and articles to assess market sentiment |
+| **Dotenv** | python-dotenv | Secure local configuration and environment variable loading |
 
 ---
 
-## 🏗 System Architecture
+## 🔄 System Architecture
 
 The following diagram illustrates how your queries flow through the Streamlit interface, the LangChain reasoning agent, and the various financial/web API tools.
 
-```mermaid
+`mermaid
 graph TD
     User([User Query]) --> UI[Streamlit Web App]
     UI --> Agent[LangChain Agent Engine]
-    Agent --> LLM[Groq Llama 3.3 LLM]
+    Agent --> LLM[NVIDIA NIM - GPT-OSS-20b]
     LLM --> Decision{Determine Tools Needed}
     
     Decision -->|Stock Profile & Price| yF_Overview[Yahoo Finance Overview Tool]
@@ -71,23 +55,22 @@ graph TD
     Aggregator --> Agent
     Agent -->|Structured Markdown Response| UI
     UI -->|Final Recommendation| User
-```
+`
 
 ---
 
-## 📂 Project Directory Structure
+## 📁 Project Directory Structure
 
-```bash
+`ash
 STOCK_ANALYZER/
-│
 ├── .venv/                  # Python Virtual Environment (ignored by Git)
-├── Notebook.ipynb          # Jupyter Notebook for prototyping agent tools and prompts
+├── Notebook/               # Jupyter Notebooks for prototyping agent tools and prompts
 ├── requirements.txt        # Python package dependencies
-├── Stock_Analyzer.py      # Core LangChain agent setup, custom tools, and prompt definitions
+├── Stock_Analyzer.py       # Core LangChain agent setup, custom tools, and prompt definitions
 ├── app.py                  # Streamlit Web App with custom CSS styling and chat loop
 ├── README.md               # Project documentation (this file)
 └── .env                    # Local environment variables containing API keys (User-Created)
-```
+`
 
 ---
 
@@ -100,47 +83,46 @@ Ensure you have **Python 3.10** or higher installed.
 
 ### 2. Clone the Repository
 Navigate to your desired directory and open a terminal:
-```bash
+`ash
 git clone <your-repository-url>
 cd STOCK_ANALYZER
-```
+`
 
 ### 3. Create and Activate a Virtual Environment
 It is highly recommended to run the app inside a virtual environment to manage dependencies:
 
 * **Windows (PowerShell):**
-  ```powershell
+  `powershell
   python -m venv .venv
   .venv\Scripts\Activate.ps1
-  ```
+  `
 * **macOS / Linux:**
-  ```bash
+  `ash
   python3 -m venv .venv
   source .venv/bin/activate
-  ```
+  `
 
 ### 4. Install Dependencies
 Install all required Python libraries:
-```bash
+`ash
 pip install -r requirements.txt
-```
-*(Note: To launch the web UI, you also need Streamlit installed: `pip install streamlit`)*
+`
 
 ### 5. Configure Your API Credentials (Two Options)
 
 The AI Stock Analyzer supports two convenient configuration methods:
 
 #### Option A: Interactive Browser Onboarding (Recommended)
-You do not need to create files manually! Simply launch the application (`streamlit run app.py`). The app will display an elegant startup dashboard in your browser where you can paste your **Groq API Key** and **News API Key** directly. Once connected, your workspace session activates instantly.
+You do not need to create files manually! Simply launch the application (streamlit run app.py). The app will display an elegant startup dashboard in your browser where you can paste your **NVIDIA API Key** and optional **News API Key** directly. Once connected, your workspace session activates instantly.
 
 #### Option B: Local Environment Configuration (.env)
-If you prefer to save your keys permanently so they are pre-filled automatically on every application reload, create a file named `.env` in the root folder of the project:
-```env
-GROQ_API_KEY=your_groq_api_key_here
+If you prefer to save your keys permanently so they are pre-filled automatically on every application reload, create a file named .env in the root folder of the project:
+`env
+NVIDIA_API_KEY=your_nvidia_api_key_here
 NEWS_API=your_news_api_key_here
-```
-* **Groq API Key:** Obtain from the [Groq Console](https://console.groq.com/).
-* **News API Key:** Obtain from [NewsAPI.org](https://newsapi.org/).
+`
+* **NVIDIA API Key:** Obtain from [NVIDIA NIM Build](https://build.nvidia.com/).
+* **News API Key:** Obtain from [NewsAPI.org](https://newsapi.org/) *(optional — DuckDuckGo search is always available as fallback)*.
 
 ---
 
@@ -150,19 +132,19 @@ You can interact with the project in three different ways:
 
 ### A. Run the Interactive Web UI (Streamlit)
 Launch the beautiful, custom dark-themed web browser interface:
-```bash
+`ash
 streamlit run app.py
-```
-This will start a local server, typically open at `http://localhost:8501`.
+`
+This will start a local server, typically at http://localhost:8501.
 
 ### B. Run the CLI Prototype
 Execute the standalone agent script directly from the terminal. It includes a built-in query test in the main method:
-```bash
+`ash
 python Stock_Analyzer.py
-```
+`
 
 ### C. Prototyping Notebook
-Open `Notebook.ipynb` in VS Code, JupyterLab, or Google Colab to experiment with prompt styling and tool definitions.
+Open any notebook inside Notebook/ in VS Code, JupyterLab, or Google Colab to experiment with prompt styling and tool definitions.
 
 ---
 
@@ -176,33 +158,34 @@ Here are a few questions you can ask the agent in the chat:
 
 ---
 
-## 📊 Standardized Response Template
+## 📋 Standardized Response Template
 
 The agent is optimized to deliver reports in the following precise format:
 
-```markdown
-📈 **Stock Summary**
-- **Ticker:** AAPL
-- **Current Price:** $178.50
-- **Trend:** Increasing (Uptrend based on 3-month moving average)
+`markdown
+# 📊 Stock Report: Apple Inc. (AAPL)
 
-💡 **Quick Insight**
-- Apple is showing strong momentum with robust revenue growth, although its trailing PE is relatively high compared to industry peers.
+### 📈 Stock Summary
+- **Current Price:** .50
+- **3-Month Trend:** 📈 Uptrend (Increasing)
+- **Market Cap:** .8T
+- **52-Week Range:** .17 - .62
 
-📰 **Recent News**
-- Apple announces new AI integration partnerships, boosting market sentiment across technical sectors.
+### 💡 Quick Insight
+Apple is showing strong momentum with robust revenue growth...
 
-🔬 **Analysis**
-- **PE Ratio:** 29.5
-- **EPS:** $6.13
-- **ROE:** 154%
-- **Debt to Equity:** 140%
-- **Free Cash Flow:** Strong liquidity with $20B+ cash flow.
+### 📰 Recent News & Sentiment
+- Apple announces new AI integration partnerships...
 
-⚠️ **Advice**
-- **Hold**
-- **Reason:** While fundamental health remains stellar, the current price is near its 52-week high. Waiting for a minor pullback offers a safer entry point. *(Disclaimer: This is not professional financial advice.)*
-```
+### 🔬 Financial Indicators & Valuation
+| Indicator | Value | Meaning |
+| PE Ratio  | 29.5  | Slightly elevated vs sector avg |
+| EPS       | .13 | Strong earnings efficiency |
+
+### 🎯 Investment Advice & Outlook
+- **Recommendation:** 🟡 HOLD
+- **Rationale:** Current price near 52-week high; wait for pullback.
+`
 
 ---
 

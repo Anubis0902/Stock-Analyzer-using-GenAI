@@ -53,18 +53,18 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Synchronize session state keys with environment variables
-if "groq_api_key" in st.session_state and st.session_state["groq_api_key"]:
-    os.environ["GROQ_API_KEY"] = st.session_state["groq_api_key"]
+if "nvidia_api_key" in st.session_state and st.session_state["nvidia_api_key"]:
+    os.environ["NVIDIA_API_KEY"] = st.session_state["nvidia_api_key"]
 if "news_api_key" in st.session_state and st.session_state["news_api_key"]:
     os.environ["NEWS_API"] = st.session_state["news_api_key"]
 
-# Check if Groq API Key is configured
-groq_api_key = os.environ.get("GROQ_API_KEY")
+# Check if NVIDIA API Key is configured
+nvidia_api_key = os.environ.get("NVIDIA_API_KEY")
 
 # ==========================================
 # MODE 1: SETUP SCREEN (API Keys Missing)
 # ==========================================
-if not groq_api_key:
+if not nvidia_api_key:
     # Render beautiful main setup screen
     st.markdown("<div style='text-align: center; margin-top: 40px;'>", unsafe_allow_html=True)
     st.title("📈 AI Stock Analyzer")
@@ -77,11 +77,11 @@ if not groq_api_key:
         st.markdown('<div class="setup-card">', unsafe_allow_html=True)
         
         st.markdown("#### 🔑 Credentials Setup")
-        groq_key_input = st.text_input(
-            "Groq API Key",
+        nvidia_key_input = st.text_input(
+            "NVIDIA API Key",
             type="password",
-            placeholder="gsk_...",
-            help="Get your key from console.groq.com"
+            placeholder="nvapi-...",
+            help="Get your key from build.nvidia.com"
         )
         
         news_key_input = st.text_input(
@@ -94,10 +94,10 @@ if not groq_api_key:
         st.markdown("<br>", unsafe_allow_html=True)
         
         if st.button("🚀 Connect Agent", use_container_width=True):
-            if groq_key_input:
+            if nvidia_key_input:
                 # Save keys to session state and environment variables
-                st.session_state["groq_api_key"] = groq_key_input
-                os.environ["GROQ_API_KEY"] = groq_key_input
+                st.session_state["nvidia_api_key"] = nvidia_key_input
+                os.environ["NVIDIA_API_KEY"] = nvidia_key_input
                 
                 if news_key_input:
                     st.session_state["news_api_key"] = news_key_input
@@ -106,7 +106,7 @@ if not groq_api_key:
                 st.success("Successfully connected! Launching workspace...")
                 st.rerun()
             else:
-                st.error("Please enter a valid Groq API Key to authenticate.")
+                st.error("Please enter a valid NVIDIA API Key to authenticate.")
                 
         st.markdown('</div>', unsafe_allow_html=True)
 
@@ -124,11 +124,11 @@ from Stock_Analyzer import agent
 # Sidebar status and reset credentials option
 with st.sidebar:
     st.title("⚙️ Configuration")
-    st.success("🟢 Agent Connected via Groq")
+    st.success("🟢 Agent Connected via NVIDIA NIM")
     
     st.markdown("---")
     st.markdown("### Credentials in Use:")
-    st.code(f"Groq API Key: {'•' * 8}{groq_api_key[-4:] if len(groq_api_key) > 4 else ''}")
+    st.code(f"NVIDIA API Key: {'•' * 8}{nvidia_api_key[-4:] if len(nvidia_api_key) > 4 else ''}")
     
     news_api = os.environ.get("NEWS_API")
     if news_api:
@@ -139,12 +139,12 @@ with st.sidebar:
     st.markdown("<br>", unsafe_allow_html=True)
     if st.button("🔄 Reset Credentials", use_container_width=True):
         # Clear keys and reload
-        if "groq_api_key" in st.session_state:
-            del st.session_state["groq_api_key"]
+        if "nvidia_api_key" in st.session_state:
+            del st.session_state["nvidia_api_key"]
         if "news_api_key" in st.session_state:
             del st.session_state["news_api_key"]
-        if "GROQ_API_KEY" in os.environ:
-            del os.environ["GROQ_API_KEY"]
+        if "NVIDIA_API_KEY" in os.environ:
+            del os.environ["NVIDIA_API_KEY"]
         if "NEWS_API" in os.environ:
             del os.environ["NEWS_API"]
         st.rerun()
